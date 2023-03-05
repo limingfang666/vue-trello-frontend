@@ -2,7 +2,7 @@
  * @Description: 统一处理后端请求接口
  * @Author: lmfang
  * @Date: 2022-11-14 16:10:11
- * @LastEditTime: 2022-12-02 17:29:58
+ * @LastEditTime: 2023-03-05 14:58:52
  * @LastEditors: lmfang
  */
 
@@ -30,6 +30,8 @@ axios.interceptors.response.use(response => {
     }
     return response;
 }, error => {
+    console.log(error);
+
     // 对返回的错误信息进行统一处理
     let { message, errorDetail } = error.response.data;
     if (errorDetail) {
@@ -54,5 +56,15 @@ export const login = (data) => {
         method: 'post',
         url: '/user/login',
         data
+    });
+}
+
+/**
+ * 获取所有面板
+ */
+export const getAllBoard = () => {
+    return axios({
+        method: 'get',
+        url: '/board',
     });
 }

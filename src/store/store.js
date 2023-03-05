@@ -7,12 +7,14 @@
  */
 import { createStore, createLogger } from 'vuex'
 import user from '@/store/modules/user'
+import board from '@/store/modules/board'
 
 const debug = process.env.NODE_ENV !== 'production';
 
 export default createStore({
     modules: {
         user,
+        board
     },
     strict: debug,
     plugins: debug ? [createLogger()] : []

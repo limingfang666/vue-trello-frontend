@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: lmfang
  * @Date: 2022-11-14 16:06:00
- * @LastEditTime: 2022-12-06 14:55:26
+ * @LastEditTime: 2023-03-05 14:44:37
  * @LastEditors: lmfang
 -->
 <template>
@@ -38,6 +38,7 @@
 <script>
 import { mapState } from 'vuex'
 import THeader from '@/components/THeader'
+import {onMounted} from 'vue'
 
 export default {
   name: 'Home',
@@ -45,6 +46,12 @@ export default {
     THeader,
   },
   computed: {
+    //   ...mapState({
+    //       boards: state => state.boards
+    //   })
+  },
+ mounted(){
+      this.$store.dispatch('board/findAllBoards', null);
   },
   methods: {
 
