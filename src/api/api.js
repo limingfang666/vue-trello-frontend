@@ -9,6 +9,7 @@
 import axios from "axios";
 // js不是vue组件，不能直接通过this获取到this.$message，所以需要重新引入
 import TMessage from '@/components/TMessage/TMessage.js'
+import router from '@/route/route';
 
 // 基本路径设置(/api)
 axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
@@ -31,15 +32,25 @@ axios.interceptors.response.use(response => {
     return response;
 }, error => {
     console.log(error);
-
     // 对返回的错误信息进行统一处理
     let { message, errorDetail } = error.response.data;
     if (errorDetail) {
         message += " : " + errorDetail;
     }
-    TMessage.error(message);
-    // 错误信息需要抛出，才能在组件中捕获到
-    throw error;
+
+    switch (error.response.data.statusCode) {
+        case 401:
+            TMessage.error(message);
+            localStorage.removeItem("token");
+            localStorage.removeItem("loginUser");
+            router.push({ path: '/login' });
+            break;
+        default:
+            // 对返回的错误信息进行统一处理
+            TMessage.error(message);
+            break;
+
+    }
 });
 
 export const register = (data) => {
@@ -65,6 +76,6 @@ export const login = (data) => {
 export const getAllBoard = () => {
     return axios({
         method: 'get',
-        url: '/board',
+        url: '/board/getAllBoards',
     });
 }

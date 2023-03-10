@@ -20,6 +20,7 @@
                 v-model.trim="user.name"
                 class="form-field"
                 autofocus="autofocus"
+                @keyup.enter="submitLogin"
                 placeholder="输入用户名"
               />
             </label>
@@ -30,6 +31,7 @@
                 v-model.trim="user.password"
                 type="password"
                 class="form-field"
+                @keyup.enter="submitLogin"
                 placeholder="输入密码"
               />
             </label>

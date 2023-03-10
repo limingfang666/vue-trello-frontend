@@ -56,6 +56,8 @@ const mutations = {
     login: (state, user) => {
         // 登录成功后将user信息存到state中，且缓存到localStorage中
         state.user = user;
+        // 登录后将token放进localStorage
+        // localStorage.setItem("token", JSON.stringify(user));
         localStorage.setItem("loginUser", JSON.stringify(user));
     },
 

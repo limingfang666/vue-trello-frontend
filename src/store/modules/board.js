@@ -9,16 +9,23 @@ const getters = () => {
 }
 
 const actions = {
+    // { commit, state }, payload
     findAllBoards: async({ commit, state }, boards) => {
-        let allBoards = await api.getAllBoard();
-        console.log(allBoards);
-        commit('updateBoards', allBoards);
+        try {
+            let allBoards = await api.getAllBoard();
+            if (allBoards) {
+                commit('updateBoards', allBoards.data.data);
+            }
+        } catch (error) {
+            throw error;
+        }
     }
 
 }
 
 const mutations = {
-    updateBoards: ({ commit, state }, boards) => {
+    // 参数类型 state, payload
+    updateBoards: (state, boards) => {
         state.boards = boards;
     }
 }

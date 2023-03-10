@@ -36,6 +36,14 @@ const routes = [
     },
     {
         name: 'Board',
+        path: '/board',
+        component: Board,
+        meta: {
+            authentication: true,
+        },
+    },
+    {
+        name: 'Board',
         path: '/board/:id(\\d+)',
         component: Board,
         meta: {
@@ -78,8 +86,6 @@ router.beforeEach((to, from, next) => {
 
     // 加上user信息校验(从localStorage中获取/或者每次发请求时重新去请求user数据Store.commit("user/initUser")后Store.state.user.user获得)
     let loginUser = Store.state.user.user;
-    console.log(loginUser, Store.state.user.user);
-
 
     // 有authentication，有token直接跳转；有authentication，无token跳转到登录页
     // 无authentication，有token无token都可以直接跳转
